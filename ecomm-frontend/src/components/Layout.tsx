@@ -1,7 +1,7 @@
 import React from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import Navbar from './Navbar';
-import { Instagram, Twitter, Mail, MoveRight } from 'lucide-react';
+import { MoveRight } from 'lucide-react';
 
 const Layout: React.FC = () => {
   return (

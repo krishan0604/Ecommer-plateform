@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useCartStore } from '../store/useCartStore';
-import { Trash2, ShoppingBag, ArrowRight, Minus, Plus, MoveRight } from 'lucide-react';
+import { Trash2, ShoppingBag, Minus, Plus, MoveRight } from 'lucide-react';
 
 const Cart: React.FC = () => {
-  const { items, removeItem, updateQuantity, totalPrice } = useCartStore();
+  const { items, removeItem, updateQuantity, subtotal } = useCartStore();
 
   if (items.length === 0) {
     return (
@@ -38,12 +38,12 @@ const Cart: React.FC = () => {
             {items.map((item) => (
               <div key={item.id} className="bg-white p-8 rounded-[40px] shadow-sm border border-gray-100 flex flex-col sm:flex-row items-center gap-8 group">
                 <div className="w-40 h-40 rounded-3xl overflow-hidden bg-gray-50 shrink-0">
-                  <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
+                  <img src={item.productImageUrl} alt={item.productName} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
                 </div>
                 
                 <div className="flex-1 text-center sm:text-left">
-                  <h3 className="text-2xl font-medium mb-1">{item.name}</h3>
-                  <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">{item.categoryName || 'Product'}</p>
+                  <h3 className="text-2xl font-medium mb-1">{item.productName}</h3>
+                  <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Product</p>
                   
                   <div className="flex items-center justify-center sm:justify-start gap-6">
                     <div className="flex items-center bg-gray-50 rounded-full p-1">
@@ -65,7 +65,7 @@ const Cart: React.FC = () => {
                 </div>
 
                 <div className="text-right flex flex-col sm:items-end justify-between self-stretch py-2">
-                  <p className="text-2xl font-medium text-gray-900">${(item.price * item.quantity).toFixed(2)}</p>
+                  <p className="text-2xl font-medium text-gray-900">${(item.productPrice * item.quantity).toFixed(2)}</p>
                   <button 
                     onClick={() => removeItem(item.id)}
                     className="text-gray-300 hover:text-red-500 transition-colors p-2"
@@ -84,7 +84,7 @@ const Cart: React.FC = () => {
               <div className="space-y-6 mb-10 pb-10 border-b border-gray-50">
                 <div className="flex justify-between text-gray-500 font-light">
                   <span>Subtotal</span>
-                  <span>${totalPrice().toFixed(2)}</span>
+                  <span>${subtotal().toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-gray-500 font-light">
                   <span>Shipping</span>
@@ -94,7 +94,7 @@ const Cart: React.FC = () => {
               
               <div className="flex justify-between items-end mb-10 px-2">
                 <span className="text-xs font-bold uppercase tracking-widest text-gray-400">Estimated Total</span>
-                <span className="text-4xl font-medium tracking-tight text-gray-900">${totalPrice().toFixed(2)}</span>
+                <span className="text-4xl font-medium tracking-tight text-gray-900">${subtotal().toFixed(2)}</span>
               </div>
 
               <Link

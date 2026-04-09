@@ -6,12 +6,12 @@ import { Mail, Lock, MoveRight } from 'lucide-react';
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const login = useAuthStore((state) => state.login);
+  const setAuth = useAuthStore((state) => state.setAuth);
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    login({ id: 1, name: 'User', email });
+    setAuth({ id: 1, name: 'User', email }, 'dummy-token');
     navigate('/');
   };
 

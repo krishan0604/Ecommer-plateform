@@ -5,7 +5,7 @@ import api from '../api/axios';
 import ProductCard from '../components/ProductCard';
 import ProductSkeleton from '../components/ProductSkeleton';
 import ScrollReveal from '../components/ScrollReveal';
-import { ArrowRight, MoveRight, Star, Plus } from 'lucide-react';
+import { MoveRight } from 'lucide-react';
 
 const Home: React.FC = () => {
   const [scrolled, setScrolled] = useState(0);

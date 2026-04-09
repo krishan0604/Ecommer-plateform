@@ -7,12 +7,12 @@ const Register: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const login = useAuthStore((state) => state.login);
+  const setAuth = useAuthStore((state) => state.setAuth);
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    login({ id: Date.now(), name, email });
+    setAuth({ id: Date.now(), name, email }, 'dummy-token');
     navigate('/');
   };
 

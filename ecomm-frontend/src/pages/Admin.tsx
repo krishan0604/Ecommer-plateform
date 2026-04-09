@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '../api/axios';
 import ScrollReveal from '../components/ScrollReveal';
-import { Plus, Trash2, Edit, Package, Layers, ShoppingCart, Users, ArrowUpRight, Lock, KeyRound, LayoutDashboard } from 'lucide-react';
+import { Plus, Trash2, Edit, Package, ShoppingCart, Users, ArrowUpRight, Lock, KeyRound, LayoutDashboard } from 'lucide-react';
 
 const Admin: React.FC = () => {
   const queryClient = useQueryClient();
@@ -30,7 +30,7 @@ const Admin: React.FC = () => {
     }
   };
 
-  const { data: products, isLoading } = useQuery({
+  const { data: products } = useQuery({
     queryKey: ['admin-products'],
     queryFn: async () => {
       const res = await api.get('/products?size=100');
@@ -39,14 +39,7 @@ const Admin: React.FC = () => {
     enabled: isAuthenticated
   });
 
-  const { data: categories } = useQuery({
-    queryKey: ['categories'],
-    queryFn: async () => {
-      const res = await api.get('/categories');
-      return res.data;
-    },
-    enabled: isAuthenticated
-  });
+
 
   const createMutation = useMutation({
     mutationFn: (product: any) => api.post('/products', product),

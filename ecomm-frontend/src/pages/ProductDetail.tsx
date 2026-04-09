@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import api from '../api/axios';
 import { useCartStore } from '../store/useCartStore';
-import { ShoppingBag, Star, ArrowLeft, Minus, Plus, Truck, ShieldCheck, RefreshCw } from 'lucide-react';
+import { Star, ArrowLeft, Minus, Plus, Truck, ShieldCheck } from 'lucide-react';
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
