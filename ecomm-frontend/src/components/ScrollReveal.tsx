@@ -1,9 +1,26 @@
 import React, { useEffect, useRef } from 'react';
 
-const ScrollReveal: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ children, className = '', delay = 0 }) => {
+interface ScrollRevealProps {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+  threshold?: number;
+  direction?: 'up' | 'left' | 'right' | 'none';
+}
+
+const ScrollReveal: React.FC<ScrollRevealProps> = ({
+  children,
+  className = '',
+  delay = 0,
+  threshold = 0.08,
+  direction = 'up',
+}) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -15,18 +32,22 @@ const ScrollReveal: React.FC<{ children: React.ReactNode; className?: string; de
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold, rootMargin: '0px 0px -40px 0px' }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
+    observer.observe(el);
     return () => observer.disconnect();
-  }, [delay]);
+  }, [delay, threshold]);
+
+  // Direction-based initial transform baked into reveal class via CSS custom props
+  const directionClass =
+    direction === 'left' ? 'reveal-left' :
+    direction === 'right' ? 'reveal-right' :
+    direction === 'none' ? 'reveal-fade' :
+    'reveal';
 
   return (
-    <div ref={ref} className={`reveal ${className}`}>
+    <div ref={ref} className={`${directionClass} ${className}`}>
       {children}
     </div>
   );

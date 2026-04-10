@@ -21,13 +21,10 @@ const Checkout: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      // Create order
-      // In a real app, we'd send the actual userId. For now, using guest flow or mock.
       const res = await api.post('/orders', {
-        userId: user?.id || 1, // Defaulting to 1 if no user
+        userId: user?.id || 1,
         shippingAddress: `${formData.address}, ${formData.city}, ${formData.zipCode}`,
       });
-
       if (res.data) {
         clearCart();
         navigate(`/confirmation?orderId=${res.data.id}`);
@@ -39,99 +36,111 @@ const Checkout: React.FC = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold text-gray-900 mb-12">Checkout</h1>
-      
-      <form onSubmit={handleSubmit} className="flex flex-col lg:flex-row gap-12">
-        <div className="flex-1 space-y-8">
-          {/* Shipping Section */}
-          <section className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
-            <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
-              <Truck className="w-6 h-6 mr-3 text-primary-600" /> Shipping Details
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="md:col-span-2">
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
-                <input
-                  type="text" required
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-500 transition-all"
-                  value={formData.name}
-                  onChange={(e) => setFormData({...formData, name: e.target.value})}
-                />
-              </div>
-              <div className="md:col-span-2">
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Street Address</label>
-                <input
-                  type="text" required
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-500 transition-all"
-                  value={formData.address}
-                  onChange={(e) => setFormData({...formData, address: e.target.value})}
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">City</label>
-                <input
-                  type="text" required
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-500 transition-all"
-                  value={formData.city}
-                  onChange={(e) => setFormData({...formData, city: e.target.value})}
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Zip Code</label>
-                <input
-                  type="text" required
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-500 transition-all"
-                  value={formData.zipCode}
-                  onChange={(e) => setFormData({...formData, zipCode: e.target.value})}
-                />
-              </div>
-            </div>
-          </section>
+    <div className="bg-[#FCFBF7] min-h-screen pt-20 sm:pt-24 md:pt-32 pb-16 sm:pb-20">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12">
+        <h1 className="text-4xl sm:text-6xl md:text-8xl font-medium tracking-tighter leading-none mb-10 sm:mb-16 md:mb-20 reveal">
+          Checkout<span className="italic font-light text-gray-400">.</span>
+        </h1>
 
-          {/* Payment Section - Mock */}
-          <section className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
-            <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
-              <CreditCard className="w-6 h-6 mr-3 text-primary-600" /> Payment Information
-            </h2>
-            <div className="p-4 bg-gray-50 rounded-2xl border border-dashed border-gray-200 text-center text-gray-500">
-              <ShieldCheck className="w-8 h-8 mx-auto mb-2 text-primary-400" />
-              <p className="font-medium text-gray-900">Secure Payment Simulation</p>
-              <p className="text-sm">Click "Place Order" to finish your purchase.</p>
-            </div>
-          </section>
-        </div>
-
-        {/* Sidebar Summary */}
-        <div className="w-full lg:w-96">
-          <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm sticky top-24">
-            <h2 className="text-xl font-bold text-gray-900 mb-6">Order Breakdown</h2>
-            <div className="max-h-60 overflow-y-auto mb-6 pr-2 space-y-4">
-              {items.map((item) => (
-                <div key={item.id} className="flex justify-between text-sm">
-                  <span className="text-gray-600 line-clamp-1 flex-1">{item.productName} x {item.quantity}</span>
-                  <span className="font-bold ml-4">${(item.productPrice * item.quantity).toFixed(2)}</span>
+        <form onSubmit={handleSubmit} className="flex flex-col lg:flex-row gap-8 sm:gap-12">
+          {/* Left: Form Fields */}
+          <div className="flex-1 space-y-6 sm:space-y-8">
+            {/* Shipping Section */}
+            <section className="bg-white p-6 sm:p-10 rounded-[24px] sm:rounded-[40px] border border-gray-100 shadow-sm">
+              <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-5 sm:mb-6 flex items-center gap-2 sm:gap-3">
+                <Truck className="w-5 h-5 sm:w-6 sm:h-6 text-black/50" />
+                Shipping Details
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                <div className="sm:col-span-2">
+                  <label className="block text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 mb-2 sm:mb-3">Full Name</label>
+                  <input
+                    type="text"
+                    required
+                    className="w-full px-4 sm:px-6 py-3 sm:py-4 rounded-2xl bg-gray-50 border border-transparent focus:border-black/10 focus:bg-white outline-none transition-all text-base sm:text-lg font-light"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  />
                 </div>
-              ))}
-            </div>
-            
-            <div className="space-y-4 mb-8 pt-4 border-t">
-              <div className="flex justify-between text-xl font-bold text-gray-900">
-                <span>Total Amount</span>
-                <span>${subtotal().toFixed(2)}</span>
+                <div className="sm:col-span-2">
+                  <label className="block text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 mb-2 sm:mb-3">Street Address</label>
+                  <input
+                    type="text"
+                    required
+                    className="w-full px-4 sm:px-6 py-3 sm:py-4 rounded-2xl bg-gray-50 border border-transparent focus:border-black/10 focus:bg-white outline-none transition-all text-base sm:text-lg font-light"
+                    value={formData.address}
+                    onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 mb-2 sm:mb-3">City</label>
+                  <input
+                    type="text"
+                    required
+                    className="w-full px-4 sm:px-6 py-3 sm:py-4 rounded-2xl bg-gray-50 border border-transparent focus:border-black/10 focus:bg-white outline-none transition-all text-base sm:text-lg font-light"
+                    value={formData.city}
+                    onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 mb-2 sm:mb-3">Zip Code</label>
+                  <input
+                    type="text"
+                    required
+                    className="w-full px-4 sm:px-6 py-3 sm:py-4 rounded-2xl bg-gray-50 border border-transparent focus:border-black/10 focus:bg-white outline-none transition-all text-base sm:text-lg font-light"
+                    value={formData.zipCode}
+                    onChange={(e) => setFormData({ ...formData, zipCode: e.target.value })}
+                  />
+                </div>
               </div>
-            </div>
+            </section>
 
-            <button
-              type="submit"
-              className="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-4 rounded-2xl flex items-center justify-center space-x-3 transition-all shadow-lg shadow-primary-600/25 active:scale-95"
-            >
-              <CheckCircle2 className="w-5 h-5" />
-              <span>Place Your Order</span>
-            </button>
+            {/* Payment Section */}
+            <section className="bg-white p-6 sm:p-10 rounded-[24px] sm:rounded-[40px] border border-gray-100 shadow-sm">
+              <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-5 sm:mb-6 flex items-center gap-2 sm:gap-3">
+                <CreditCard className="w-5 h-5 sm:w-6 sm:h-6 text-black/50" />
+                Payment Information
+              </h2>
+              <div className="p-5 sm:p-6 bg-gray-50 rounded-2xl border border-dashed border-gray-200 text-center text-gray-500">
+                <ShieldCheck className="w-7 h-7 sm:w-8 sm:h-8 mx-auto mb-2 text-gray-400" />
+                <p className="font-medium text-gray-900 text-sm sm:text-base">Secure Payment Simulation</p>
+                <p className="text-xs sm:text-sm text-gray-400 mt-1">Click "Place Order" to finish your purchase.</p>
+              </div>
+            </section>
           </div>
-        </div>
-      </form>
+
+          {/* Right: Order Summary */}
+          <div className="w-full lg:w-[380px] xl:w-[420px]">
+            <div className="bg-white p-6 sm:p-10 rounded-[24px] sm:rounded-[40px] border border-gray-100 shadow-sm lg:sticky lg:top-32">
+              <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-5 sm:mb-6">Order Breakdown</h2>
+              <div className="max-h-52 overflow-y-auto mb-5 sm:mb-6 pr-2 space-y-3 sm:space-y-4 scrollbar-hide">
+                {items.map((item) => (
+                  <div key={item.id} className="flex justify-between text-sm">
+                    <span className="text-gray-600 line-clamp-1 flex-1 text-xs sm:text-sm">{item.productName} × {item.quantity}</span>
+                    <span className="font-bold ml-3 sm:ml-4 text-xs sm:text-sm">${(item.productPrice * item.quantity).toFixed(2)}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="space-y-4 mb-6 sm:mb-8 pt-4 border-t border-gray-100">
+                <div className="flex justify-between items-end">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Total Amount</span>
+                  <span className="text-2xl sm:text-3xl font-medium tracking-tight">${subtotal().toFixed(2)}</span>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                id="place-order-btn"
+                className="w-full bg-black text-white font-bold py-4 sm:py-6 rounded-full flex items-center justify-center gap-3 text-xs sm:text-sm uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-2xl shadow-black/20"
+              >
+                <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5" />
+                Place Your Order
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
