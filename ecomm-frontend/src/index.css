@@ -1,301 +1,94 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 :root {
-  --font-serif: "Playfair Display", serif;
-  --font-sans: "Plus Jakarta Sans", sans-serif;
-  --bg-color: #FCFBF7;
-  --text-color: #000;
-  --accent-color: #1a1a1a;
-}
-
-@theme {
-  --font-serif: var(--font-serif);
-  --font-sans: var(--font-sans);
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Only hide system cursor on non-touch devices */
-@media (hover: hover) and (pointer: fine) {
-  * { cursor: none !important; }
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --color-primary: #000000;
+  --color-background: #ffffff;
+  --color-text: #1a1a1a;
+  --color-border: #e2e8f0;
 }
 
 body {
   font-family: var(--font-sans);
-  background-color: var(--bg-color);
-  color: var(--text-color);
+  background-color: var(--color-background);
+  color: var(--color-text);
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4 {
-  font-family: var(--font-serif);
+/* Base utility for standard image behavior */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
-/* Elite Reveal Animations */
-.reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 1.2s cubic-bezier(0.2, 1, 0.3, 1);
-}
-
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.reveal-left {
-  opacity: 0;
-  transform: translateX(-40px);
-  transition: all 1.2s cubic-bezier(0.2, 1, 0.3, 1);
-}
-
-.reveal-left.active {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.reveal-right {
-  opacity: 0;
-  transform: translateX(40px);
-  transition: all 1.2s cubic-bezier(0.2, 1, 0.3, 1);
-}
-
-.reveal-right.active {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.reveal-fade {
-  opacity: 0;
-  transition: opacity 1.2s cubic-bezier(0.2, 1, 0.3, 1);
-}
-
-.reveal-fade.active {
-  opacity: 1;
-}
-
-/* Skeleton shimmer */
-@keyframes skeletonShimmer {
-  0%   { transform: translateX(-100%); }
-  100% { transform: translateX(200%); }
-}
-
-.skeleton-shimmer {
-  animation: skeletonShimmer 1.8s ease-in-out infinite;
-}
-
-/* Custom Cursor Styles — only on pointer devices */
-@media (hover: hover) and (pointer: fine) {
-  .custom-cursor {
-    width: 10px;
-    height: 10px;
-    background-color: black;
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 9999;
-    transition: transform 0.1s ease-out;
-  }
-
-  .custom-cursor-follower {
-    width: 40px;
-    height: 40px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 9998;
-    transition: transform 0.2s ease-out, background-color 0.3s ease;
-  }
-
-  .cursor-hover {
-    transform: scale(2);
-    background-color: rgba(0, 0, 0, 0.05);
-    border-color: transparent;
-  }
-}
-
-/* Marquee — Normal (40s) */
-.animate-marquee {
+/* Shopify-style Button */
+.btn-primary {
   display: inline-flex;
-  animation: marquee 40s linear infinite;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-primary);
+  color: #fff;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.2s ease;
+  min-width: 120px;
+  border: 1px solid var(--color-primary);
 }
 
-/* Marquee — Fast (20s) */
-.animate-marquee-fast {
+.btn-primary:hover {
+  background-color: transparent;
+  color: var(--color-primary);
+}
+
+.btn-secondary {
   display: inline-flex;
-  animation: marquee 20s linear infinite;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  color: var(--color-primary);
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.2s ease;
+  min-width: 120px;
+  border: 1px solid var(--color-border);
 }
 
-/* Marquee — Slow (70s) */
-.animate-marquee-slow {
-  display: inline-flex;
-  animation: marquee 70s linear infinite;
+.btn-secondary:hover {
+  border-color: var(--color-primary);
 }
 
-/* Marquee — Reverse */
-.animate-marquee-reverse {
-  display: inline-flex;
-  animation: marqueeReverse 40s linear infinite;
+/* Standard clean card hover */
+.product-card-hover {
+  transition: opacity 0.3s ease;
+}
+.group:hover .product-card-hover {
+  opacity: 0.8;
 }
 
-@keyframes marquee {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+/* Hide scrollbar for horizontal scrolling elements */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
-
-@keyframes marqueeReverse {
-  0%   { transform: translateX(-50%); }
-  100% { transform: translateX(0); }
-}
-
-/* Pause marquee on hover */
-.animate-marquee:hover,
-.animate-marquee-fast:hover,
-.animate-marquee-slow:hover {
-  animation-play-state: paused;
-}
-
-/* Glassmorphism */
-.glass {
-  background: rgba(252, 251, 247, 0.8);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-}
-
-/* Section Transitions */
-section {
-  position: relative;
-  z-index: 10;
-}
-
-/* Hide scrollbar utility */
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
+
+/* Simple fade transition */
+.fade-in {
+  animation: fadeIn 0.5s ease-in forwards;
 }
 
-/* =============================================
-   RESPONSIVE UTILITIES
-   ============================================= */
-
-/* Clamp-based fluid typography */
-.text-fluid-hero {
-  font-size: clamp(3rem, 15vw, 12rem);
-}
-.text-fluid-lg {
-  font-size: clamp(2rem, 8vw, 7rem);
-}
-.text-fluid-md {
-  font-size: clamp(1.5rem, 5vw, 4rem);
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-/* Touch-friendly tap targets */
-@media (max-width: 768px) {
-  button, a {
-    min-height: 44px;
-  }
-
-  /* Admin table: mobile card mode */
-  .admin-table thead {
-    display: none;
-  }
-  .admin-table tbody tr {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid rgba(0,0,0,0.05);
-    border-radius: 2rem;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-    background: white;
-  }
-  .admin-table tbody td {
-    padding: 0.5rem 0 !important;
-    border: none !important;
-  }
-  .admin-table tbody td:last-child {
-    padding-top: 1rem !important;
-  }
-}
-
-/* Smooth image rendering */
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-/* =============================================
-   AWWWARDS-LEVEL EXTRAS
-   ============================================= */
-
-/* Clip-path reveal animation */
-@keyframes clipReveal {
-  from { clip-path: inset(0 100% 0 0); }
-  to   { clip-path: inset(0 0% 0 0); }
-}
-
-/* Text shimmer */
-@keyframes shimmer {
-  0%   { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
-
-/* Scale-in for cards */
-@keyframes scaleIn {
-  from { opacity: 0; transform: scale(0.96) translateY(16px); }
-  to   { opacity: 1; transform: scale(1) translateY(0); }
-}
-
-.animate-scale-in {
-  animation: scaleIn 0.8s cubic-bezier(0.2, 1, 0.3, 1) forwards;
-}
-
-/* Stagger helper */
-.stagger-1 { animation-delay: 0.1s; }
-.stagger-2 { animation-delay: 0.2s; }
-.stagger-3 { animation-delay: 0.3s; }
-.stagger-4 { animation-delay: 0.4s; }
-
-/* Line-clamp utilities */
-.line-clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* Better focus ring */
+/* Standard focus styles for accessibility */
 :focus-visible {
-  outline: 2px solid black;
-  outline-offset: 3px;
-  border-radius: 4px;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
-
-/* Smooth scroll-snap for horizontal scrollers */
-.snap-x-scroll {
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-}
-.snap-x-scroll > * {
-  scroll-snap-align: start;
-}
-
-/* Card hover lift */
-.card-lift {
-  transition: transform 0.7s cubic-bezier(0.2, 1, 0.3, 1), box-shadow 0.7s ease;
-}
-.card-lift:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.12);
-}
-
