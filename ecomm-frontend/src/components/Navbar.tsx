@@ -131,6 +131,12 @@ const Navbar: React.FC = () => {
                   {user ? 'Account' : 'Log in'}
                 </Link>
               </li>
+              <li className="border-t border-gray-100 mt-4 pt-6 px-6">
+                <div className="flex space-x-6">
+                  <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-black text-sm uppercase tracking-wider font-medium">Instagram</a>
+                  <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-black text-sm uppercase tracking-wider font-medium">LinkedIn</a>
+                </div>
+              </li>
             </ul>
           </div>
         </div>

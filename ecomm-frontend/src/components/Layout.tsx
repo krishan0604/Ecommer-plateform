@@ -63,8 +63,8 @@ const Layout: React.FC = () => {
             <div>
                <h4 className="font-medium text-black mb-4 uppercase text-xs tracking-wider">Stay connected</h4>
                <div className="flex space-x-4 mb-6">
-                 <a href="#" className="text-gray-500 hover:text-black">Instagram</a>
-                 <a href="#" className="text-gray-500 hover:text-black">Twitter</a>
+                 <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-black">Instagram</a>
+                 <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-black">LinkedIn</a>
                </div>
             </div>
           </div>
